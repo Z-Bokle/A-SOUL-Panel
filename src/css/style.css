@@ -1,0 +1,68 @@
+/* 通用样式 */
+*{
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+html,body{
+    width:100%;
+    height:100%;
+}
+.main-view{
+    width: 100%;
+    height: 100%;
+}
+.top{
+    width: 100%;
+    height: 6vh;
+    text-align: center;
+}
+.middle{
+    margin: 10vh auto 6vh;
+    width: 100%;
+    height: 74vh;
+    text-align: center;
+}
+.bottom{
+    width: 100%;
+    height: 4vh;
+    text-align: center;
+}
+
+.apps{
+    margin: 0px auto 0;
+    height: 6vh;
+    text-align: center;
+    background-color: aquamarine;
+}
+.time{
+    margin: 0 auto 3vh;
+    width: 40vw;
+    height: 24vh;
+    text-align: center;
+    background-color:darkgreen;
+}
+.search{
+    margin: 3vh auto 3vh;
+    width: 60vw;
+    height: 6vh;
+    text-align: center;
+    background-color:blueviolet;
+}
+.shortcuts{
+    margin: 3vh auto 0;
+    width: 60vw;
+    height: 40vh;
+    text-align: center;
+    background-color: cadetblue;
+}
+.greetings{
+    margin: 0 auto 0;
+    height: 4vh;
+    text-align: center;
+    background-color: brown;
+}
+/* document.body
+总高度以100vh计 
+总宽度以100vw计
+*/
