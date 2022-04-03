@@ -10,6 +10,7 @@ let globalConfig = {
     }
 }
 const app = Vue.createApp(globalConfig)
+
 /*
 类似Content对象
 通过访问app对象来取出、修改全局变量或调用全局方法

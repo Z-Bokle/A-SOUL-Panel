@@ -15,29 +15,34 @@
 
         <div class="backgrounds"></div>
 
-        <div class="side-colomn"></div>
-
         <div class="top">
             <div class="apps">
-                <top-app></top-app>
+                <button onclick="showapp1()">showapp1</button>
+                <button onclick="showapp2()">showapp2</button>
             </div>
         </div>
 
         <div class="middle">
-
             
+            <app ref="app1"></app>
 
             <div class="time">
                 <clock></clock>
             </div>
+
             <div class="search">
                 <search-box></search-box>
             </div>
-            <div class="shortcuts">shotcuts</div>
+
+            <div class="shortcuts">
+                shotcuts
+            </div>
         </div>
 
         <div class="bottom">
-            <div class="greetings">greetings</div>
+            <div class="greetings">
+                greetings
+            </div>
         </div>
 
 
@@ -45,11 +50,11 @@
 
 
     <script src="./src/js/app.js"></script>
-    <script src="./src/js/top-app.js"></script>
+    <script src="./src/js/appWindow.js"></script>
     <script src="./src/js/clock.js"></script>
     <script src="./src/js/search-box.js"></script>
     <script>
         //开始加载
-        app.mount('#main-view')
+        const vm = app.mount('#main-view')
     </script>
 </body>
