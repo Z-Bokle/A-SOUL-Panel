@@ -1,6 +1,7 @@
 let globalConfig = {
     data() {
         return {
+            hhmmss: "hh:mm:ss"
             //全局变量
         }
     },
@@ -20,30 +21,45 @@ const app = Vue.createApp(globalConfig)
 由于项目结构简单，所有组件均为全局组件
 */
 
-//注册clock组件
-app.component('clock', {
-    data() {
-        return {
-            timeFormat: "hh:mm:ss",
-            time: "00:00:00",
-            timerID: ""
+
+app.component('to-do',{
+    data(){
+        return{
+            todoArray:[]
         }
     },
-    created() {
-        this.time = (new Date()).Format(this.timeFormat)
-        this.timerID = setInterval(() => {this.nextTime()}, 100);//每0.1秒更新一次时间
+    created(){
+
     },
-    destroyed() {
-        clearInterval(this.timerID);
+    destroyed(){
+
     },
-    methods: {
-        nextTime() {
-            this.time = (new Date()).Format(this.timeFormat)
+    methods:{
+
+    },
+    template:``
+})
+
+app.component('to-do-item',{
+    data(){
+        return{
+            text:null,//文字描述
+            done:true,//是否完成
+            id:null
         }
     },
-    template: '<h3> {{time}} </h3>'
+    created(){
+
+    },
+    destroyed(){
+
+    },
+    methods:{
+
+    },
+    template:`<input type="comboBox" checked="done"/>
+    {{text}}
+    `
 })
 
 
-//开始加载
-app.mount('#main-view')

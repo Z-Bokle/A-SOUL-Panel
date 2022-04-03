@@ -18,14 +18,21 @@
         <div class="side-colomn"></div>
 
         <div class="top">
-            <div class="apps">apps</div>
+            <div class="apps">
+                <top-app></top-app>
+            </div>
         </div>
 
         <div class="middle">
+
+            
+
             <div class="time">
                 <clock></clock>
             </div>
-            <div class="search">search</div>
+            <div class="search">
+                <search-box></search-box>
+            </div>
             <div class="shortcuts">shotcuts</div>
         </div>
 
@@ -37,6 +44,12 @@
     </div>
 
 
-
     <script src="./src/js/app.js"></script>
+    <script src="./src/js/top-app.js"></script>
+    <script src="./src/js/clock.js"></script>
+    <script src="./src/js/search-box.js"></script>
+    <script>
+        //开始加载
+        app.mount('#main-view')
+    </script>
 </body>
