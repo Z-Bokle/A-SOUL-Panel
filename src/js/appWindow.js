@@ -2,7 +2,8 @@ app.component('app',{
     data(){
         return {
             title:"title1",
-            visible:false
+            visible:false,
+            inside:{}
         }
     },
     methods:{
@@ -42,6 +43,9 @@ app.component('app',{
 })
 
 function showapp1(){
+    //打开app前先把所有其他的app关闭
+    vm.$refs.app2.visible=false
+
     vm.$refs.app1.title="app1"
     vm.$refs.app1.visible=true
     //在data()中定义一个专用对象并在这里设置具体要显示的内容等
@@ -49,6 +53,9 @@ function showapp1(){
 }
 
 function showapp2(){
-    vm.$refs.app1.title="app2"
-    vm.$refs.app1.visible=true
+    //打开app前先把所有其他的app关闭
+    vm.$refs.app1.visible=false
+
+    vm.$refs.app2.title="app2"
+    vm.$refs.app2.visible=true
 }
