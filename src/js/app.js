@@ -27,31 +27,46 @@ app.component('todo-list',{
     data(){
         return{
             todoArray:[],
-            rowHtml:null
+            rowHtml:null,
+            itemHeight:4
         }
     },
     created(){
         //从插件存储api取出todoArray
+        
     },
     destroyed(){
         //将todoArray保存到插件存储api
         //仅保存未被标记完成的项目
     },
     methods:{
-
+        addTodo(){
+            let newTodoText=document.getElementById("newTodoText")
+            this.todoArray.push({
+                text:newTodoText.value,
+                done:false,
+            })
+            newTodoText.value=null
+        }
     },
     template:
     `
     <div>
-    <div v-html=rowHtml></div>
+    
+        <div class="todo-items">
+            <div v-for="item in todoArray" class="todo-item" >
+                <todo-item :text=item.text></todo-item>
+            </div>
+        </div>
+
+        <div class="todo-new">
+            <span><input type="text" id="newTodoText" maxlength="40" /></span>
+            <span><button @click="addTodo">OK</button></span>
+        </div>
+    
     </div>
     `
 })
-
-//todo-item基本完成了
-//接下来实现todo-list并以子组件的形式嵌入todo-item
-//每次增删改查todoArray后都执行一个函数以重新设置rowHtml，重新渲染列表
-//rowHtml中每个<todo-item></todo-item>外套一层<div></div>实现换行
 
 app.component('todo-item',{
     props:{
@@ -60,7 +75,7 @@ app.component('todo-item',{
             required:true
         },
         done:{//是否完成
-            type:String, //html标签传参数似乎总是字符串
+            type:String, //html标签传参数似乎总是字符串，使用完整的vue中<template>标签替代template字段可以解决此问题
             default:"false",
             validator: (value) => {
                 // 这个值必须匹配下列字符串中的一个
@@ -81,8 +96,8 @@ app.component('todo-item',{
         }
     },
     created(){
-        this.checkBox = (this.finished == true) ? "<input type=\"checkbox\" checked=\"checked\" />" : "<input type=\"checkbox\" />"
-        this.itemStyle = (this.finished == true) ? this.doneStyle :this.normalStyle
+        this.checkBox = (this.finished) ? "<input type=\"checkbox\" checked=\"checked\" />" : "<input type=\"checkbox\" />"
+        this.itemStyle = (this.finished) ? this.doneStyle :this.normalStyle
         //console.info(this.checkBox)
     },
     destroyed(){

@@ -99,6 +99,27 @@ html,body{
     width: 100vw;
 }
 
+.todo-item{
+    height: 4vh;
+    width: 40vw;
+    background-color: crimson;
+    position: relative;
+    left: 0vw;
+}
+.todo-items{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 42vh;
+}
+.todo-new{
+    position: absolute;
+    height: 4vh;
+    width: 40vw;
+    background-color: hotpink;
+    top: 46vh;
+}
+
+
 /* document.body
 总高度以100vh计 
 总宽度以100vw计
