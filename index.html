@@ -7,11 +7,14 @@
     <title>A-SOUL Panel</title>
     <script src="./src/js/vue.global.js"></script>
     <script src="./src/js/dateFormat.js"></script>
+    <script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>
 </head>
 
 <body>
 
     <div id="main-view">
+
+        
 
         <div class="backgrounds"></div>
 
@@ -20,6 +23,7 @@
                 <button onclick="showapp1()">showapp1</button>
                 <button onclick="showapp2()">showapp2</button>
             </div>
+            <weather></weather>
         </div>
 
         <div class="middle">
@@ -27,7 +31,9 @@
             <app ref="app1">
                 <todo-list></todo-list>
             </app>
-            <app ref="app2"></app>
+            <app ref="app2">
+                
+            </app>
 
             <div class="time">
                 <clock></clock>

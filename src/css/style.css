@@ -119,6 +119,13 @@ html,body{
     top: 46vh;
 }
 
+.backgrounds{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: -99999;
+    background-image: url(https://bing.biturl.top/?resolution=1920&format=image&index=0&mkt=zh-CN);
+}
 
 /* document.body
 总高度以100vh计 

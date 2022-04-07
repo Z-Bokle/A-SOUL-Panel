@@ -126,4 +126,20 @@ app.component('todo-item',{
     `
 })
 
-
+//天气的ip定位好像有点问题
+app.component('weather',{
+    data(){
+        return {
+            ip:undefined,
+            url:null,
+        }
+    },
+    created(){
+        this.ip=returnCitySN["cip"]
+        this.url=`https://wttr.in/@${this.ip}_0tqp_lang=zh_t=150.png`
+    },
+    template:
+    `
+        <img :src=url />
+    `
+})
