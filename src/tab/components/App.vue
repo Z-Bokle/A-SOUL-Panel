@@ -12,7 +12,7 @@
 
     <div class="middle">
 
-      <weather></weather>
+      <!-- <weather></weather> -->
 
       <app-window ref='app1' title="title1">
         <todo-list></todo-list>

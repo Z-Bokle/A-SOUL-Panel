@@ -1,5 +1,5 @@
 <template>
-  <span @click="updateGreeting">{{ `${this.greeting} —— ${this.author}` }}</span>
+  <span @click="updateGreeting" class="greeting">{{ `${this.greeting} —— ${this.author}` }}</span>
 </template>
 
 <script>
@@ -44,5 +44,7 @@ export default {
 </script>
 
 <style>
-
+.greeting{
+    font-size: 2vh;
+}
 </style>

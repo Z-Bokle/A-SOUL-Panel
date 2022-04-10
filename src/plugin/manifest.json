@@ -22,14 +22,6 @@
     "chrome_url_overrides":{
         "newtab":"tab.html"
     },
-    "content_scripts":[
-        {
-            "matches":["http://*/*", "https://*/*"],
-            "js":["js/chunk-vendors.js"],
-            "css":["css/style.css","css/app.css","css/tab.css"],
-            "run_at":"document_start"
-        }
-    ],
     "background":{
         "service_worker":"service_worker.js"
     }
