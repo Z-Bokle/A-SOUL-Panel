@@ -1,19 +1,21 @@
 # A-SOUL-Panel
 
-## 初始化
+## 如何自己构建代码？
+需要自行构建代码请参照下文教程，非专业用户亦可以下载构建好的插件或直接从商店安装
+### 初始化
 - Clone本仓库
 - 根据[package文件](package.json)中的内容用npm安装依赖的包
 ```
 npm install [packageName]
 ```
   
-## 编译项目
+### 编译项目
 使用npm run build构建项目，build的过程可以参考[vue配置文件](vue.config.js)
 ```
 npm run build
 ```
   
-## 加载到浏览器
+### 加载到浏览器
 使用浏览器“加载解压缩的扩展”功能，进入编译出的dist目录加载插件即可
   
   
