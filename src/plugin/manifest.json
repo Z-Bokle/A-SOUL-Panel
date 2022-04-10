@@ -1,0 +1,33 @@
+{
+    "name":"A-SOUL Panel",
+    "version":"0.1",
+    "manifest_version":3,
+    "description":"New Tab for A-SOUL.",
+    "icons":{
+        "16":"assets/icons/16.png",
+        "32":"assets/icons/32.png",
+        "48":"assets/icons/48.png",
+        "128":"assets/icons/128.png"
+    },
+    "host_permissions":[
+        "http://*.bilibili.com/",
+        "https://*.bilibili.com/",
+        "http://*.bing.com/",
+        "https://*.bing.com/",
+        "https://wttr.in/",
+        "http://pv.sohu.com/"
+    ],
+    "permissions":["storage"],
+    "homepage_url":"https://github.com/Z-Bokle/A-SOUL-Panel",
+    "chrome_url_overrides":{
+        "newtab":"tab.html"
+    },
+    "content_scripts":[
+        {
+            "matches":["http://*/*", "https://*/*"],
+            "js":["js/chunk-vendors.js"],
+            "css":["css/style.css","css/app.css","css/tab.css"],
+            "run_at":"document_start"
+        }
+    ]
+}
