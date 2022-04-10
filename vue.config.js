@@ -19,6 +19,10 @@ const copyFiles = [
    {
      from: path.resolve("src/tab/style.css"),
      to: path.resolve("dist/css/style.css")
+   },
+   {
+     from: path.resolve("src/plugin/service_worker.js"),
+     to: `${path.resolve("dist")}/service_worker.js`
    }
 ];
 

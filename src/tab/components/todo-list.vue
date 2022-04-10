@@ -9,14 +9,14 @@
 
         <div class="todo-new">
             <span><input type="text" id="newTodoText" maxlength="40" /></span>
-            <span><button @click="addTodo">OK</button></span>
+            <span><button @click="addTodo" @keydown.enter="addTodo">OK</button></span>
         </div>
     
     </div>
 </template>
 
 <script>
-import todoItem from './todo-item.vue'
+import todoItem from './todo-item'
 export default {
     name:'todo-list',
     components:{
@@ -25,7 +25,6 @@ export default {
     data(){
         return{
             todoArray:[],
-            rowHtml:null,
             itemHeight:4
         }
     },

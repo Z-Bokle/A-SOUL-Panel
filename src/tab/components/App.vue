@@ -7,10 +7,12 @@
         <button @click="showapp1()">showapp1</button>
         <button @click="showapp2()">showapp2</button>
       </div>
-      <weather></weather>
+      
     </div>
 
     <div class="middle">
+
+      <weather></weather>
 
       <app-window ref='app1' title="title1">
         <todo-list></todo-list>
@@ -34,19 +36,20 @@
 
     <div class="bottom">
       <div class="greetings">
-        greetings
+        <greetings></greetings>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import AppWindow from './appWindow.vue'
-import clock from './clock.vue'
-import searchBox from './search-box.vue'
-import todoList from './todo-list.vue'
-import weather from './weather.vue'
-
+import AppWindow from './appWindow'
+import clock from './clock'
+import searchBox from './search-box'
+import todoList from './todo-list'
+import weather from './weather'
+import backgrounds from './backgrounds'
+import greetings from './greetings'
 
 export default {
     components:{
@@ -54,7 +57,9 @@ export default {
       weather,
       searchBox,
       todoList,
-      AppWindow
+      AppWindow,
+      backgrounds,
+      greetings
     },
     methods:{
       showapp1(){
@@ -120,10 +125,5 @@ export default {
     text-align: center;
     background-color: brown;
 }
-.backgrounds{
-    position: fixed;
-    height: 100vh;
-    width: 100vw;
-    z-index: -99999;
-}
+
 </style>

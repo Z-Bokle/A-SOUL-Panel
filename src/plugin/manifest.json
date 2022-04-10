@@ -15,9 +15,9 @@
         "http://*.bing.com/",
         "https://*.bing.com/",
         "https://wttr.in/",
-        "http://pv.sohu.com/"
+        "https://saying.api.azwcl.com/"
     ],
-    "permissions":["storage"],
+    "permissions":["storage","alarms","notifications"],
     "homepage_url":"https://github.com/Z-Bokle/A-SOUL-Panel",
     "chrome_url_overrides":{
         "newtab":"tab.html"
@@ -29,5 +29,8 @@
             "css":["css/style.css","css/app.css","css/tab.css"],
             "run_at":"document_start"
         }
-    ]
+    ],
+    "background":{
+        "service_worker":"service_worker.js"
+    }
 }
