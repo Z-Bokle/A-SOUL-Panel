@@ -1,12 +1,9 @@
 <template>
-  <div class="shortcuts">
-      <div v-for="(item,index) in shortcutsArray" :key="index" class="shortcut-item">
-
-      </div>
-      <div class="add-shortcut">
-
-      </div>
-  </div>
+    <div class="shortcuts">
+        <div v-for="(item,index) in shortcutsArray" :key="index" class="shortcut-item">
+            <shortcut-item :text=item.text :link=item.link :index=index @click="addShortcut(index)"></shortcut-item>
+        </div>
+    </div>
 </template>
 
 <script>
@@ -35,18 +32,39 @@ export default {
     },
     created(){
         //从插件storage取出shortcutsArray
+        
+        this.shortcutsArray.push({
+            text:"addItem",
+            link:null
+        })
     },
     unmounted(){
         //将shortcutsArray存储到storage
     },
     methods:{
-        addShortcut(){
-
+        addShortcut(index){
+            if(index!=this.shortcutsArray.length-1) return;
+            //点击的并非最后一个项目，故不添加新项目
+            if (this.shortcutsArray.length>=24) {
+                alert("您的图标数目太多了")
+            } 
+            else {
+                this.shortcutsArray.push({
+                    text:"test111",
+                    link:"https://www.baidu.com"
+                })  
+                //swapItem
+                let tmp=this.shortcutsArray[this.shortcutsArray.length-1]
+                this.shortcutsArray[this.shortcutsArray.length-1]=this.shortcutsArray[this.shortcutsArray.length-2]
+                this.shortcutsArray[this.shortcutsArray.length-2]=tmp
+            }
         }
     }
 }
 </script>
 
 <style>
-
+.shortcut-item{
+    position: absolute;
+}
 </style>

@@ -29,7 +29,7 @@
       </div>
 
       <div class="shortcuts">
-        shotcuts
+        <shortcuts></shortcuts>
 
       </div>
     </div>
@@ -50,6 +50,7 @@ import todoList from './todo-list'
 import weather from './weather'
 import backgrounds from './backgrounds'
 import greetings from './greetings'
+import shortcuts from './shortcuts'
 
 export default {
     components:{
@@ -59,7 +60,8 @@ export default {
       todoList,
       AppWindow,
       backgrounds,
-      greetings
+      greetings,
+      shortcuts
     },
     methods:{
       showapp1(){
