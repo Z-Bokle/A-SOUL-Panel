@@ -5,8 +5,10 @@
     <div class="top">
       <div class="apps">
         <el-row>
+          <el-button-group>
           <el-button @click="showapp1()">showapp1</el-button>
           <el-button @click="showapp2()">showapp2</el-button>
+          </el-button-group>
         </el-row>
       </div>
       

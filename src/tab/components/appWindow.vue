@@ -60,7 +60,7 @@ export default {
     position: absolute;
 }
 .app__wrapper{
-    z-index: 99999;
+    z-index: 999;
     position: fixed;
     width: 100vw;
     height: 94vh;
