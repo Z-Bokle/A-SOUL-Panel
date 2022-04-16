@@ -4,8 +4,10 @@
 
     <div class="top">
       <div class="apps">
-        <button @click="showapp1()">showapp1</button>
-        <button @click="showapp2()">showapp2</button>
+        <el-row>
+          <el-button @click="showapp1()">showapp1</el-button>
+          <el-button @click="showapp2()">showapp2</el-button>
+        </el-row>
       </div>
       
     </div>

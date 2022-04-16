@@ -25,7 +25,7 @@ npm run build
   
   
 ## 技术栈（可能）
-css + html + js + vue3 + webpack5(vue/cli3默认) + 可能还有别的我不知道的
+css + html + js + vue3 + webpack5(vue/cli3默认) + vue-loader + 可能还有别的我不知道的
   
 ## 有关Manifest V3
 - Manifest V3 相对于 V2 在机制上有很大改变，各种限制变得更加严格，比如取消background机制改用serviceWorker(相比background无法直接操作DOM —— 因此jquery也一起无了，空闲时浏览器将收回运行资源，禁用ajax仅能使用fetch API等)，但Manifest V2 的插件生命周期确实不长了(本地加载都得先报个错提醒你更新版本)，干脆直接从3开始设计。由于V3的相关中文资料确实是太少，我只能润去谷歌看官方文档(英语没白学)，慢慢啃总算是看明白了七七八八，要不是平时时间少我也挺想写点相关文章的😥

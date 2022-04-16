@@ -1,7 +1,16 @@
 <template>
     <div class="shortcuts">
         <div v-for="(item,index) in shortcutsArray" :key="index" class="shortcut-item">
-            <shortcut-item :text=item.text :link=item.link :index=index @click="addShortcut(index)"></shortcut-item>
+            <shortcut-item 
+            :text=item.text 
+            :link=item.link 
+            :index=index 
+            :draggable=item.draggable
+            @click="addShortcut(index)"
+            @dragenter="dragenter($event, index)"
+            @dragover="dragover($event, index)"
+            @dragstart="dragstart(index)">
+            </shortcut-item>
         </div>
     </div>
 </template>
@@ -27,7 +36,7 @@ export default {
     data(){
         return {
             shortcutsArray:[],
-
+            dragIndex:undefined//拖动时用
         }
     },
     created(){
@@ -35,30 +44,50 @@ export default {
         
         this.shortcutsArray.push({
             text:"addItem",
-            link:null
+            link:null,
+            draggable:false
         })
     },
     unmounted(){
         //将shortcutsArray存储到storage
     },
-    methods:{
+    methods: {
         addShortcut(index){
-            if(index!=this.shortcutsArray.length-1) return;
+            if (index != this.shortcutsArray.length - 1) return;
             //点击的并非最后一个项目，故不添加新项目
-            if (this.shortcutsArray.length>=24) {
+            if (this.shortcutsArray.length >= 12){
                 alert("您的图标数目太多了")
-            } 
-            else {
-                this.shortcutsArray.push({
-                    text:"test111",
-                    link:"https://www.baidu.com"
-                })  
-                //swapItem
-                let tmp=this.shortcutsArray[this.shortcutsArray.length-1]
-                this.shortcutsArray[this.shortcutsArray.length-1]=this.shortcutsArray[this.shortcutsArray.length-2]
-                this.shortcutsArray[this.shortcutsArray.length-2]=tmp
             }
-        }
+            else{
+                this.shortcutsArray.push({
+                    text: "test" + this.shortcutsArray.length.toString(),
+                    link: "https://www.baidu.com",
+                    draggable: true
+                })
+                //swapItem
+                let tmp = this.shortcutsArray[this.shortcutsArray.length - 1]
+                this.shortcutsArray[this.shortcutsArray.length - 1] = this.shortcutsArray[this.shortcutsArray.length - 2]
+                this.shortcutsArray[this.shortcutsArray.length - 2] = tmp
+            }
+        },
+        dragstart(index){
+            this.dragIndex = index
+        },
+        dragenter(e, index){
+            e.preventDefault() //避免源对象触发自身的dragenter事件
+            if(index == this.shortcutsArray.length - 1) return; //阻止插入到最后一个            
+            if(this.dragIndex !== index){
+                const source = this.shortcutsArray[this.dragIndex]
+                this.shortcutsArray.splice(this.dragIndex, 1)
+                this.shortcutsArray.splice(index, 0, source)
+                //排序变化后目标对象的索引变成源对象的索引
+                this.dragIndex = index
+            }
+        },
+        dragover(e, index) {
+            e.preventDefault()
+
+        },
     }
 }
 </script>

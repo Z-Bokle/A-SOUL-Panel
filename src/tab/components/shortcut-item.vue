@@ -1,7 +1,7 @@
 <template>
     <div @click=clickItem class="shortcut-block" :style=getPositionStyle(index)>
         <div>
-            <img :src=icon :style=imgStyle />
+            <img :src=icon :style=imgStyle draggable="false"/>
         </div>
         <div>
             <span> {{ text }} </span>
@@ -30,8 +30,8 @@ export default {
         return {
             icon:"./assets/icons/512.png",//图标url地址
             imgStyle:{
-                height:'48px',
-                width:'48px',
+                height:'5vh',
+                width:'5vh'//相对大小通过客户端高度获取
             }
         }
     },
@@ -49,15 +49,15 @@ export default {
             高度10vh
             */
            return {
-               height:'10vh',
+               height:'20vh',
                width:'10vw',
                position:'absolute',
-               top:`${parseInt(index/6)*10}vh`,
+               top:`${parseInt(index/6)*20}vh`,
                left:`${parseInt(index%6)*10}vw`
            }
         }
     }
-}
+}//完成一下动画以及todo中的功能
 </script>
 
 <style>
