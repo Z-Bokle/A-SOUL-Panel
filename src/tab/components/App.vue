@@ -114,7 +114,8 @@ export default {
     width: 60vw;
     height: 6vh;
     text-align: center;
-    background-color:blueviolet;
+    background:linear-gradient(to right, rgb(249, 177, 177) 0%,rgb(249, 146, 146) 100%);
+    opacity: 0.4;  
 }
 .shortcuts{
     margin: 3vh auto 0;
