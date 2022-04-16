@@ -17,6 +17,15 @@ chrome.alarms.create("init",{
 //init用于service_worker初始化
 
 
+chrome.action.onClicked.addListener((tab) => {
+    chrome.tabs.create(
+        {
+            //打开新标签页
+            url:"chrome://newtab/"
+        }
+    )
+})
+
 chrome.runtime.onInstalled.addListener(() => {
     //插件初始化，往storage中存一些必要的初始数据
     console.log("install")

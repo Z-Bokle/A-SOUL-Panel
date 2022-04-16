@@ -24,5 +24,9 @@
     },
     "background":{
         "service_worker":"service_worker.js"
+    },
+    "action":{
+        "default_icon":"assets/icons/32.png",
+        "default_title":"关注嘉然，顿顿解馋！😋"
     }
 }
