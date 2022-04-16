@@ -1,5 +1,5 @@
 <template>
-    <div @click=clickItem class="shortcut-block" :style=getPositionStyle(index)>
+    <div @click=clickItem class="shortcut-block">
         <div>
             <img :src=icon :style=imgStyle draggable="false"/>
         </div>
@@ -42,19 +42,6 @@ export default {
         clickItem(){
             if(this.link) //链接存在(一般情况只有最后一个addItem的link是null)
             window.open(this.link,"_self")
-        },
-        getPositionStyle(index){
-            /*
-            宽度10vw
-            高度10vh
-            */
-           return {
-               height:'20vh',
-               width:'10vw',
-               position:'absolute',
-               top:`${parseInt(index/6)*20}vh`,
-               left:`${parseInt(index%6)*10}vw`
-           }
         }
     }
 }//完成一下动画以及todo中的功能

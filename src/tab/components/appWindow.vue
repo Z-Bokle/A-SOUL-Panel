@@ -52,7 +52,6 @@ export default {
 
 <style>
 .app{
-    z-index: 999;
     background-color: coral;  
     left: 30vw;
     top: 10vh;
@@ -61,6 +60,7 @@ export default {
     position: absolute;
 }
 .app__wrapper{
+    z-index: 999;
     position: fixed;
     width: 100vw;
     height: 94vh;
