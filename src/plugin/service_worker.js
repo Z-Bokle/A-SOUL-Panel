@@ -74,7 +74,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                     view:dynamic.desc.view, //浏览
                     face:dynamic.desc.user_profile.info.face, //头像
                     text:content.item.description , //文本
-                    timestamp:content.item.timestamp, //时间戳
+                    timestamp:dynamic.desc.timestamp, //时间戳
                     picUrl:content.item.pictures[0].img_src, //图片链接
                     url:`https://t.bilibili.com/${dynamic.desc.dynamic_id_str}` //链接
                 }
@@ -118,7 +118,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                     title:content.title, //标题
                     text:content.summary , //文本
                     timestamp:content.publish_time, //时间戳-发布时间
-                    picUrl:image_urls[0], //图片链接
+                    picUrl:content.image_urls[0], //图片链接
                     url:`https://t.bilibili.com/${dynamic.desc.dynamic_id_str}` //链接
                 }
                 break;
@@ -206,6 +206,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             console.log("动态更新",recent_dynamic[list.update[i]])
             for (let i = 0; i < list.startLive.length; i++) 
             console.log("开始直播",live[list.startLive[i]])
+
+            console.log("beforeSave",recent_dynamic,live)
+            let save = await chrome.storage.sync.set({'recent_dynamic':recent_dynamic,'live':live})
         }
         
         checkData()
