@@ -207,7 +207,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             for (let i = 0; i < list.startLive.length; i++) 
             console.log("开始直播",live[list.startLive[i]])
 
-            console.log("beforeSave",recent_dynamic,live)
+            // console.log("beforeSave",recent_dynamic,live)
             let save = await chrome.storage.sync.set({'recent_dynamic':recent_dynamic,'live':live})
         }
         

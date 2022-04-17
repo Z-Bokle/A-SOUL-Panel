@@ -36,7 +36,6 @@
 直播间信息展示使用v-for加载6张卡片
 */
 import { ref } from 'vue'
-let members = []
 export default {
     name:'asouldata',
     data(){
@@ -53,6 +52,14 @@ export default {
                 [8,"视频"],
                 [64,"专栏"]
             ]),
+            members:[
+                {name:'ava',cname:"向晚",rid:22625025,uid:672346917},
+                {name:'bella',cname:"贝拉",rid:22632424,uid:672353429},
+                {name:'carol',cname:"珈乐",rid:22634198,uid:351609538},
+                {name:'diana',cname:"嘉然",rid:22637261,uid:672328094},
+                {name:'eileen',cname:"乃琳",rid:22625027,uid:672342685},
+                {name:'asoul',cname:"官号",rid:22632157,uid:703007996}
+            ]
         }
     },
     created() {
@@ -74,7 +81,7 @@ export default {
             return fmt;
         }
 
-        this.getMemberData()
+        this.updateData()
     },
     methods:{
         openWindow(){
@@ -88,8 +95,10 @@ export default {
             if(this.rawArray.length - this.dataArray.length < 32) //剩余不足32项
             this.updateData()
 
+            // console.log("rawArr",this.rawArray)
+
             let rawItem = this.rawArray[this.dataArray.length]
-            let name = members.find((element, index, array) => { element.uid == rawItem.uid })
+            let name = this.members.find((element, index, array) => { element.uid == rawItem.uid })
             let type = this.typeMap.has(rawItem.type) ? this.typeMap.get(rawItem.type) : "其他"
             this.dataArray.push({
                 time:new Date(rawItem.timestamp*1000).Format("yyyy-MM-dd hh:mm:ss"), //时间戳
@@ -253,10 +262,6 @@ export default {
             await this.fetchData()
             this.nextOffset = this.nextOffsetMin
             this.nextOffsetMin = 0
-        },
-        async getMemberData(){
-            let result = await chrome.storage.sync.get(['members'])
-            members = result.members
         }
     }
 }
