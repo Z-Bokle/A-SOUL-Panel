@@ -13,12 +13,12 @@
                     <h4>{{ item.head }}</h4>
                     <p>{{ item.text }}</p>
 
-                    <el-card v-show="item.insideObj">
+                    <!-- <el-card v-show="item.insideObj">
                         <el-avatar :src="item.insideObj.head" />
                         <h3>{{ item.insideObj.name }}</h3>
                         <p>{{ item.insideObj.text }}</p>
                         <el-image v-show="item.insideObj.pinUrl" :src=item.insideObj.picUrl fit="contain" />
-                    </el-card>
+                    </el-card> -->
 
                     <span>浏览 {{ item.view }} / </span>
                     <span>评论 {{ item.comment }} / </span>
@@ -98,7 +98,7 @@ export default {
             // console.log("rawArr",this.rawArray)
 
             let rawItem = this.rawArray[this.dataArray.length]
-            let name = this.members.find((element, index, array) => { element.uid == rawItem.uid })
+            let name = this.members.find((element, index, array) => { element.uid == rawItem.uid }).name
             let type = this.typeMap.has(rawItem.type) ? this.typeMap.get(rawItem.type) : "其他"
             this.dataArray.push({
                 time:new Date(rawItem.timestamp*1000).Format("yyyy-MM-dd hh:mm:ss"), //时间戳
