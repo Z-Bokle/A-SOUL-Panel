@@ -85,8 +85,12 @@ export default {
     align-items: flex-end;
     align-content: space-around;
 }
-
-.shortcut-item{
+.shortcuts-leave-active
+.shortcuts-item-enter-active
+{
+    transition: all 1s ease;   
+}
+.shortcuts-move{
     transition: transform 0.8s ease;
     
 }

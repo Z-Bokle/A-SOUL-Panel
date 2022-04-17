@@ -39,7 +39,7 @@ export default {
     background-size: 400%;
     /* 透明度0 （完全透明）~ 1（完全不透明） */
     /* opacity: 0.6;   */
-    animation: sun 5s infinite;        
+    /* animation: sun 5s infinite;         */
 }
 
 @keyframes sun{

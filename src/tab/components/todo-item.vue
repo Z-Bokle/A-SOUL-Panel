@@ -1,7 +1,9 @@
 <template>
-      <span :style=itemStyle>
+      <span :style=itemStyle @click="clickItem">
           <span> {{text}} </span>
-          <span v-html="checkBox" @click="clickItem"></span>
+          <span>
+            <input type="checkbox" :checked=checked />
+          </span>
       </span>
 </template>
 
@@ -13,31 +15,23 @@ export default {
             type:String,
             required:true
         },
-        done:{//是否完成
-            type:String, //html标签传参数似乎总是字符串，使用完整的vue中<template>标签替代template字段可以解决此问题
-            default:"false",
-            validator: (value) => {
-                // 这个值必须匹配下列字符串中的一个
-                return ['false', 'true'].indexOf(value) !== -1
-            }
-        },
+        done:{
+            type:Boolean,
+            required:true
+        }
     },
     data(){
         return{
             id:null, //以后可能会用的到
-            checkBox:null, //checkBox的标签，用于v-html替换
-            finished:this.done=="true"? true : false, 
-            //由于done是read only的因此后续修改都用finished
-            //finished是一个Boolean而done是一个String
+            finished:this.done,
+            checked: this.done? "checked" : "unechecked",
             normalStyle:{"text-decoration":"none"}, //定义未完成的样式
             doneStyle:{"text-decoration":"line-through"}, //定义完成的样式
             itemStyle:undefined
         }
     },
     created(){
-        this.checkBox = (this.finished) ? "<input type=\"checkbox\" checked=\"checked\" />" : "<input type=\"checkbox\" />"
-        this.itemStyle = (this.finished) ? this.doneStyle :this.normalStyle
-        //console.info(this.checkBox)
+        this.itemStyle=finished?this.doneStyle : this.normalStyle
     },
     unmounted(){
 

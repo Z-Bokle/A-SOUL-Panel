@@ -6,8 +6,8 @@
       <div class="apps">
         <el-row>
           <el-button-group>
-          <el-button @click="showapp1()">showapp1</el-button>
-          <el-button @click="showapp2()">showapp2</el-button>
+          <el-button @click="showapp1()">设置</el-button>
+          <el-button @click="showapp2()">动态与直播</el-button>
           </el-button-group>
         </el-row>
       </div>
@@ -17,12 +17,8 @@
     <div class="middle">
 
       <!-- <weather></weather> -->
-
-      <app-window ref='app1' title="title1">
-        <todo-list></todo-list>
-      </app-window>
-
-      <app-window ref="app2" title="title2"></app-window>
+      <settings ref="settings"></settings>
+      <asouldata ref="asouldata"></asouldata>
 
       <div class="time">
         <clock></clock>
@@ -55,7 +51,8 @@ import weather from './weather'
 import backgrounds from './backgrounds'
 import greetings from './greetings'
 import shortcuts from './shortcuts'
-
+import settings from './settings'
+import asouldata from './asouldata'
 export default {
     components:{
       clock,
@@ -65,17 +62,16 @@ export default {
       AppWindow,
       backgrounds,
       greetings,
-      shortcuts
+      shortcuts,
+      settings,
+      asouldata
     },
     methods:{
       showapp1(){
-        //先关闭所有窗口再打开目标窗口
-        this.$refs.app2.close()
-        this.$refs.app1.open()
+        this.$refs.settings.openWindow()
       },
       showapp2(){
-        this.$refs.app1.close()
-        this.$refs.app2.open()
+        this.$refs.asouldata.openWindow()
       }
 
     }
@@ -116,8 +112,7 @@ export default {
     width: 60vw;
     height: 6vh;
     text-align: center;
-    background:linear-gradient(to right, rgb(249, 177, 177) 0%,rgb(249, 146, 146) 100%);
-    opacity: 0.4;  
+    background-color:blueviolet;
 }
 .shortcuts{
     margin: 3vh auto 0;

@@ -1,25 +1,25 @@
 <template>
-      <div class="app-main" @click="closemodel">
-          <div class="app__wrapper" v-if="visible">
-              <div class="app">
+    <div class="app-main" @click="closemodel">
+        <div class="app__wrapper" v-if="visible">
+            <div class="app">
 
-                  <div class="app__header">
-                      <div class="app__title">{{ title }}</div>
-                  </div>
+                <div class="app__header">
+                    <div class="app__title">{{ title }}</div>
+                </div>
 
-                  <div class="app__body">
-                      <slot></slot>
-                  </div>
+                <div class="app__body">
+                    <slot></slot>
+                </div>
 
-              </div>
+            </div>
 
-              <div class="app-outside">
+            <div class="app-outside">
 
-              </div>
+            </div>
 
-          </div>
+        </div>
 
-      </div>
+    </div>
 </template>
 
 <script>
@@ -52,6 +52,7 @@ export default {
 
 <style>
 .app{ 
+    z-index: 1000;
     background-color: coral;  
     left: 30vw;
     top: 10vh;
