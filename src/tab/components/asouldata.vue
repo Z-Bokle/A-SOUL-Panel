@@ -1,29 +1,68 @@
 <template>
     <el-drawer v-model="drawer" title="A-SOUL的动态与直播" direction="ltr" size="50%">
-        <el-card>
-            这里展示直播间信息
-        </el-card>
+
+        <el-carousel interval="4000" height="400px">
+            <el-carousel-item v-for="(item,index) in live" :key="index" @click="openTab(item.url)">
+                    <el-image :src="item.picUrl" fit="contain" />
+            </el-carousel-item>
+        </el-carousel>
+
+        <el-divider />
+
+        <el-collapse>
+            <el-collapse-item title="直播间信息">
+                <el-collapse v-model="activeRef" accordion>
+                    <el-collapse-item v-for="(item,index) in live" :key="index" :title="members.find((element) => { return element.rid == item.rid }).cname">
+                        <el-descriptions :title="item.title" border>
+                            <el-descriptions-item label="标题">
+                                {{ item.title }}
+                            </el-descriptions-item>
+
+                            <el-descriptions-item label="房间号">
+                                {{ item.rid }}
+                            </el-descriptions-item>
+
+                            <el-descriptions-item label="直播状态">
+                                <el-tag :type=liveMapTag.get(item.status)>
+                                    {{ liveMapText.get(item.status) }}
+                                </el-tag>
+                            </el-descriptions-item>
+
+                            <el-descriptions-item label="关注">
+                                {{ item.attention }}
+                            </el-descriptions-item>
+
+                            <el-descriptions-item label="人气值(未开播或轮播时可能为0)">
+                                {{ item.online }}
+                            </el-descriptions-item>
+
+                        </el-descriptions>
+                    </el-collapse-item>
+                </el-collapse>
+            </el-collapse-item>
+        </el-collapse>
 
         <el-divider />
 
         <el-timeline v-infinite-scroll="load">
             <el-timeline-item v-for="(item,index) in dataArray" :key="index" :timestamp=item.time :icon=item.icon placement="top">
                 <el-card @click="openTab(item.url)">
-                    <el-avatar :src="item.headUrl" />
-                    <h4>{{ item.head }}</h4>
-                    <p>{{ item.text }}</p>
+                    <template #header>
+                        <el-avatar :src="item.headUrl" size="large" />
+                        <h4 class="dynamic-title">{{ item.head }}</h4>
+                    </template>
+                    
+                    <p class="dynamic-text">{{ item.text }}</p>
 
-                    <!-- <el-card v-show="item.insideObj">
-                        <el-avatar :src="item.insideObj.head" />
-                        <h3>{{ item.insideObj.name }}</h3>
-                        <p>{{ item.insideObj.text }}</p>
-                        <el-image v-show="item.insideObj.pinUrl" :src=item.insideObj.picUrl fit="contain" />
-                    </el-card> -->
+                    <el-image v-if=item.picUrl :src=item.picUrl fit="contain" class="dynamic-image" />
 
-                    <span>浏览 {{ item.view }} / </span>
-                    <span>评论 {{ item.comment }} / </span>
-                    <span>点赞 {{ item.like }}</span>
-                    <el-image v-if=item.withPic :src=item.picUrl fit="contain" />
+                    <el-divider />
+
+                    <div>
+                        <span>浏览 {{ item.view }} / </span>
+                        <span>评论 {{ item.comment }} / </span>
+                        <span>点赞 {{ item.like }}</span>
+                    </div>
                 </el-card>
             </el-timeline-item>
         </el-timeline>
@@ -36,15 +75,18 @@
 直播间信息展示使用v-for加载6张卡片
 */
 import { ref } from 'vue'
+
 export default {
     name:'asouldata',
     data(){
         return{
+            activeRef:ref('1'),
             drawer:ref(false),
             dataArray:[],
             rawArray:[], //从fetch API获取到的经过第一次信息提取的序列，每次调用fetchData()都根据时间戳倒序排序
             nextOffsetMin:0, //此轮nextOffset的最小值，0为初始值
             nextOffset:0, //下一轮的nextOffset
+            members:[],
             typeMap: new Map([
                 [1,"转发"],
                 [2,"图片"],
@@ -52,14 +94,17 @@ export default {
                 [8,"视频"],
                 [64,"专栏"]
             ]),
-            members:[
-                {name:'ava',cname:"向晚",rid:22625025,uid:672346917},
-                {name:'bella',cname:"贝拉",rid:22632424,uid:672353429},
-                {name:'carol',cname:"珈乐",rid:22634198,uid:351609538},
-                {name:'diana',cname:"嘉然",rid:22637261,uid:672328094},
-                {name:'eileen',cname:"乃琳",rid:22625027,uid:672342685},
-                {name:'asoul',cname:"官号",rid:22632157,uid:703007996}
-            ]
+            live:[],
+            liveMapText: new Map([
+                [0,"未开播"],
+                [1,"直播中"],
+                [2,"轮播中"]
+            ]),
+            liveMapTag: new Map([
+                [0,"danger"],
+                [1,"success"],
+                [2,"warning"]
+            ])
         }
     },
     created() {
@@ -81,7 +126,15 @@ export default {
             return fmt;
         }
 
-        this.updateData()
+        this.getMembers()
+        try{
+            this.updateData()
+            // console.log(this.live)
+        }    
+        catch(err){
+            console.error("获取数据失败")
+        }
+
     },
     methods:{
         openWindow(){
@@ -93,26 +146,30 @@ export default {
         load(){
             //从rawArray处获得足量信息并按时间排序，处理成dataArray的元素后push进去
             if(this.rawArray.length - this.dataArray.length < 32) //剩余不足32项
-            this.updateData()
+            try{
+                this.updateData()
+            }    
+            catch(err){
+                console.error("获取数据失败")
+            }
 
-            // console.log("rawArr",this.rawArray)
 
             let rawItem = this.rawArray[this.dataArray.length]
-            let name = this.members.find((element, index, array) => { element.uid == rawItem.uid }).name
+            let member = this.members.find((element) => { return element.uid == rawItem.uid }) //根据uid查找到成员
+
             let type = this.typeMap.has(rawItem.type) ? this.typeMap.get(rawItem.type) : "其他"
             this.dataArray.push({
                 time:new Date(rawItem.timestamp*1000).Format("yyyy-MM-dd hh:mm:ss"), //时间戳
-                head:`${name}发表了${type}类型的动态`, //标题
+                head:`${member.cname}发表了${type}类型的动态`, //标题
                 text:rawItem.text ? rawItem.text : null, //内容
-                withPic:rawItem.picUrl ? true : false, //带图片
-                picUrl:rawItem.picUrl, //图片链接
+                picUrl:rawItem.type==1 ? rawItem.insideObj.picUrl : rawItem.picUrl, //图片链接
                 url:rawItem.url, //卡片点击链接
                 headUrl:rawItem.face, //头像链接
                 like:rawItem.like, //点赞
                 view:rawItem.view, //浏览
                 comment:rawItem.comment, //评论
-                insideObj:rawItem.insideObj
             })
+                
         },
         openTab(url){
             window.open(url)
@@ -144,7 +201,15 @@ export default {
                         name:insideContent.user.name,
                         head:insideContent.user.headUrl,
                         text:insideContent.item.content,
-                        picUrl:insideContent.item.pictures[0]
+                        picUrl:insideContent.item.pictures[0].img_src
+                    }
+                    else if(content.item.orig_type == 8)
+                    insideObj = {
+                        type:8,
+                        name:insideContent.owner.name,
+                        head:insideContent.owner.face,
+                        text:insideContent.description,
+                        picUrl:insideContent.pic
                     }
                     else insideObj = null
                 }
@@ -262,11 +327,31 @@ export default {
             await this.fetchData()
             this.nextOffset = this.nextOffsetMin
             this.nextOffsetMin = 0
+        },
+        async getMembers(){
+            let result = await chrome.storage.sync.get(['members','live'])
+            this.members = await result.members
+            this.live = await result.live
         }
     }
 }
 </script>
 
 <style>
-
+el-carousel-item h3{
+    position: absolute;
+    top: 60px;
+}
+el-carousel-item span{
+    position: absolute;
+}
+.dynamic-text{
+    font-size: 1.1em;
+}
+.dynamic-title{
+    font-size: 1.8em;
+}
+.dynamic-image{
+    margin-top: 3vh;
+}
 </style>

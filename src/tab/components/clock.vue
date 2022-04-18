@@ -1,7 +1,9 @@
 //注册clock组件
 <template>
+    <div class="clock">
     <h2> {{time}} </h2>
     <h3> {{date}} </h3>  
+    </div>
 </template>
 
 <script>
@@ -62,5 +64,17 @@ export default {
 </script>
 
 <style>
-
+.clock{
+    font-family: Arlrdbd;
+    color: white;
+    width: 40vw;
+    height: 24vh;
+}
+h2{
+    font-size:11vh;
+}
+h3{
+    font-size:5.5vh;
+    margin-top:4.5vh;
+}
 </style>

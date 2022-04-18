@@ -12,7 +12,7 @@
             @dragover="dragover($event, index)"
             @dragstart="dragstart(index)">
             </shortcut-item>
-            <button @click="addShortcut" v-show="shortcutsArray.length<24">add</button>
+            <shortcut-item @click="addShortcut" v-show="shortcutsArray.length<24" :link="null" text="添加新图标" :index="-1"></shortcut-item>
     </transition-group>
 </template>
 

@@ -10,7 +10,7 @@ chrome.alarms.create("alarm_1hour",{
 })
 
 chrome.alarms.create("init",{
-    when:Date.now()+3000  //在3s后执行alarm
+    when:Date.now()+1000  //在1s后执行alarm
 })
 
 
@@ -142,7 +142,9 @@ chrome.alarms.onAlarm.addListener((alarm) => {
             status:data.data.live_status, //状态 0停播 1开播 2轮播
             url:`https://live.bilibili.com/${data.data.room_id}`, //链接
             picUrl:data.data.user_cover, //封面
-            rid:data.data.room_id //房间号
+            rid:data.data.room_id, //房间号
+            attention:data.data.attention, //关注
+            online:data.data.online //人气值(未开播时可能为0)
         }
     }
 

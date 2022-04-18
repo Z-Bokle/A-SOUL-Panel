@@ -1,3 +1,15 @@
+@font-face {
+    font-family: MiSans;
+    src: url("../fonts/MiSans-Medium.ttf");
+}
+@font-face {
+    font-family: HYXuJingXingKaiW;
+    src: url("../fonts/HYXuJingXingKaiW.ttf");
+}
+@font-face {
+    font-family: Arlrdbd;
+    src: url("../fonts/Arlrdbd.ttf");
+}
 *{
     margin:0;
     padding:0;
@@ -6,6 +18,7 @@
 html,body{
     width:100%;
     height:100%;
+    font-family: MiSans;
 }
 .main-view{
     width: 100%;

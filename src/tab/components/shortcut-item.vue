@@ -1,9 +1,9 @@
 <template>
     <div @click=clickItem class="shortcut-block">
-        <div>
+        <div class="item-icon">
             <img :src=icon :style=imgStyle draggable="false"/>
         </div>
-        <div>
+        <div class="item-text">
             <span> {{ text }} </span>
         </div>
     </div>
@@ -51,6 +51,17 @@ export default {
 .shortcut-block{
     width: 10vw;
     height: 10vh;
-    background-color: darkorange;
+    background: rgba(255,255,255,0);
+    backdrop-filter: blur(10px); 
+    border-radius: 15px;
+}
+.item-text{
+    margin-top: 0.9vh;
+    font-family: MiSans;
+    font-size: 2vh;
+    color:whitesmoke;
+}
+.item-icon{
+    margin-top: 0.8vh;
 }
 </style>

@@ -44,7 +44,11 @@ export default {
 </script>
 
 <style>
+
 .greeting{
-    font-size: 2vh;
+    font-size: 2.5vh;
+    font-family: HYXuJingXingKaiW;
+    color: white;
 }
+
 </style>

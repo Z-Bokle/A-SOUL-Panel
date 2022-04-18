@@ -35,11 +35,11 @@ export default {
     font-size: 15px;
     color:rgb(251, 212, 195);
     border-radius:50px;
-    background: linear-gradient(to right top, #fb0505, #0418fa,#effb05,rgb(5, 251, 34));
+    background: linear-gradient(to right top, rgba(0,0,0,0.9), rgba(0,0,0,0.6),rgba(0,0,0,0.3),rgba(0,0,0,0.1));
     background-size: 400%;
     /* 透明度0 （完全透明）~ 1（完全不透明） */
-    /* opacity: 0.6;   */
-    /* animation: sun 5s infinite;         */
+    opacity: 0.6;   
+    animation: sun 5s infinite;         
 }
 
 @keyframes sun{

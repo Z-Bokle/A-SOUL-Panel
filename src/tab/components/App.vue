@@ -28,10 +28,10 @@
         <search-box></search-box>
       </div>
 
-      <div class="shortcuts">
+      <div>
         <shortcuts></shortcuts>
-
       </div>
+      
     </div>
 
     <div class="bottom">
@@ -98,34 +98,43 @@ export default {
 .apps{
     margin: 0px auto 0;
     height: 6vh;
-    background-color: aquamarine;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(2px);   
 }
 .time{
     margin: 0 auto 3vh;
     width: 40vw;
     height: 24vh;
     text-align: center;
-    background-color:darkgreen;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(2px); 
+    border-radius: 25px;
 }
 .search{
     margin: 3vh auto 3vh;
     width: 60vw;
     height: 6vh;
     text-align: center;
-    background-color:blueviolet;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(2px); 
+    border-radius: 25px;
 }
 .shortcuts{
     margin: 3vh auto 0;
     width: 60vw;
     height: 40vh;
     text-align: center;
-    background-color: cadetblue;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(2px); 
+    border-radius: 25px;
 }
 .greetings{
     margin: 0 auto 0;
     height: 4vh;
     text-align: center;
-    background-color: brown;
+    background: rgba(255,255,255,.1);
+    backdrop-filter: blur(2px); 
+    
 }
 
 </style>
