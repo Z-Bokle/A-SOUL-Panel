@@ -1,14 +1,14 @@
 @font-face {
     font-family: MiSans;
-    src: url("../fonts/MiSans-Medium.ttf");
+    src: url("../assets/fonts/MiSans-Medium.ttf");
 }
 @font-face {
     font-family: HYXuJingXingKaiW;
-    src: url("../fonts/HYXuJingXingKaiW.ttf");
+    src: url("../assets/fonts/HYXuJingXingKaiW.ttf");
 }
 @font-face {
     font-family: Arlrdbd;
-    src: url("../fonts/Arlrdbd.ttf");
+    src: url("../assets/fonts/Arlrdbd.ttf");
 }
 *{
     margin:0;

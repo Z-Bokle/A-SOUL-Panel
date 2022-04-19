@@ -23,10 +23,6 @@ const copyFiles = [
    {
      from: path.resolve("src/plugin/service_worker.js"),
      to: `${path.resolve("dist")}/service_worker.js`
-   },
-   {
-    from: path.resolve("src/fonts"),
-    to: path.resolve("dist/fonts")
    }
 ];
 

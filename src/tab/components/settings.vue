@@ -5,7 +5,7 @@
     direction="ltr"
     destroy-on-close="true"
     >
-    Settings-----666
+    
     </el-drawer>
 </template>
 

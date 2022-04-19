@@ -24,6 +24,7 @@
 
 <script>
 export default {
+    //暂时弃用
     name:'appWindow',
     props:{
         title:String

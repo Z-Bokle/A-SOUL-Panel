@@ -10,12 +10,8 @@
         "128":"assets/icons/128.png"
     },
     "host_permissions":[
-        "http://*.bilibili.com/",
-        "https://*.bilibili.com/",
-        "http://*.bing.com/",
-        "https://*.bing.com/",
-        "https://wttr.in/",
-        "https://saying.api.azwcl.com/"
+        "http://*/",
+        "https://*/"
     ],
     "permissions":["storage","alarms","notifications"],
     "homepage_url":"https://github.com/Z-Bokle/A-SOUL-Panel",

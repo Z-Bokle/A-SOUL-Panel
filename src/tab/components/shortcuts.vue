@@ -1,4 +1,25 @@
 <template>
+
+    <el-dialog v-model="dialogVisible" title="添加新快捷方式" width="30%" draggable>
+        <el-form :model="form">
+            <el-form-item label="图标">
+                <el-avatar :src="shortcutIcon" size="large" />
+                <br />
+                <el-button @click="refreshIcon">刷新图标</el-button>
+            </el-form-item>
+
+            <el-form-item label="快捷方式名">
+                <el-input v-model="shortcutText" placeholder="请输入快捷方式的名字" />
+            </el-form-item>
+
+            <el-form-item label="链接地址">
+                <el-input v-model="shortcutLink" placeholder="请输入快捷方式的链接" />
+            </el-form-item>            
+
+        </el-form>
+        <span> <el-button @click="addShortcut(shortcutText,shortcutLink,shortcutIcon)">确定</el-button> </span>
+    </el-dialog>
+
     <transition-group name="shortcuts" class="shortcuts" tag="div">
             <shortcut-item 
             v-for="(item,index) in shortcutsArray" 
@@ -6,13 +27,14 @@
             class="shortcut-item"
             :text=item.text 
             :link=item.link 
+            :icon=item.icon
             :index=index 
             :draggable=item.draggable
             @dragenter="dragenter($event, index)"
             @dragover="dragover($event, index)"
             @dragstart="dragstart(index)">
             </shortcut-item>
-            <shortcut-item @click="addShortcut" v-show="shortcutsArray.length<24" :link="null" text="添加新图标" :index="-1"></shortcut-item>
+            <shortcut-item @click="openDialog" v-show="shortcutsArray.length<24" :link="null" icon="./assets/icons/512.png" text="添加新图标" :index="-1"></shortcut-item>
     </transition-group>
 </template>
 
@@ -29,6 +51,7 @@ item可排序，在设置选项卡中实现给出列表上下拖动更新Array�
 
 */
 import shortcutItem from './shortcut-item'
+import { ref } from 'vue'
 export default {
     name:'shortcuts',
     components:{
@@ -37,7 +60,12 @@ export default {
     data(){
         return {
             shortcutsArray:[],
-            dragIndex:undefined//拖动时用
+            dragIndex:undefined, //拖动时用
+            dialogVisible:ref(false),
+            //用于v-model绑定Dialog内数据
+            shortcutText:null,
+            shortcutLink:null,
+            shortcutIcon:"./assets/icons/512.png",
         }
     },
     created(){
@@ -48,12 +76,14 @@ export default {
         //将shortcutsArray存储到storage
     },
     methods: {
-        addShortcut(){
+        addShortcut(text,link,icon){
             this.shortcutsArray.splice(this.shortcutsArray.length , 0,{
-                text: "test" + this.shortcutsArray.length.toString(),
-                link: "https://www.baidu.com",
+                text: text,
+                link: link,
+                icon: icon,
                 draggable: true
             })
+            this.dialogVisible = false
         },
         dragstart(index){
             this.dragIndex = index
@@ -73,6 +103,16 @@ export default {
             e.preventDefault()
 
         },
+        openDialog(){
+            this.shortcutText=null
+            this.shortcutLink=null
+            this.shortcutIcon="./assets/icons/512.png"
+            this.dialogVisible=true
+        },
+        async refreshIcon(){
+
+            this.shortcutIcon = 'https://api.qqsuu.cn/api/favicon/get.php?url=' + this.shortcutLink
+        }
     }
 }
 </script>

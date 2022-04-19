@@ -1,7 +1,7 @@
 <template>
     <div @click=clickItem class="shortcut-block">
         <div class="item-icon">
-            <img :src=icon :style=imgStyle draggable="false"/>
+            <el-avatar :src=icon :style=imgStyle draggable="false"/>
         </div>
         <div class="item-text">
             <span> {{ text }} </span>
@@ -19,16 +19,20 @@ export default {
         },
         text:{
             type:String,
-            required:true
+            default:""
         },
         index:{
             type:Number,
             required:true
+        },
+        icon:{
+            type:String,
+            default:"./assets/icons/512.png"
         }
     },
     data(){
         return {
-            icon:"./assets/icons/512.png",//图标url地址
+            //iconUrl:icon,//图标url地址
             imgStyle:{
                 height:'5vh',
                 width:'5vh'//相对大小通过客户端高度获取

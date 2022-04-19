@@ -43,7 +43,6 @@
 </template>
 
 <script>
-import AppWindow from './appWindow'
 import clock from './clock'
 import searchBox from './search-box'
 import todoList from './todo-list'
@@ -59,7 +58,6 @@ export default {
       weather,
       searchBox,
       todoList,
-      AppWindow,
       backgrounds,
       greetings,
       shortcuts,
