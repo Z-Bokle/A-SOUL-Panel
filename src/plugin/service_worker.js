@@ -14,14 +14,14 @@ chrome.alarms.create("init",{
 })
 
 
-chrome.action.onClicked.addListener((tab) => {
-    chrome.tabs.create(
-        {
-            //打开新标签页
-            url:"chrome://newtab/"
-        }
-    )
-})
+// chrome.action.onClicked.addListener((tab) => {
+//     chrome.tabs.create(
+//         {
+//             //打开新标签页
+//             url:"chrome://newtab/"
+//         }
+//     )
+// })
 
 chrome.runtime.onInstalled.addListener(() => {
     chrome.storage.sync.set({
