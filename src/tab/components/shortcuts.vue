@@ -1,6 +1,6 @@
 <template>
 
-    <el-dialog v-model="dialogVisible" title="添加新快捷方式" width="30%" draggable>
+    <el-dialog v-model="dialogVisible1" title="添加新快捷方式" width="30%" draggable>
         <el-form :model="form">
             <el-form-item label="图标">
                 <el-avatar :src="shortcutIcon" size="large" />
@@ -14,28 +14,42 @@
 
             <el-form-item label="链接地址">
                 <el-input v-model="shortcutLink" placeholder="请输入快捷方式的链接" />
-            </el-form-item>            
+            </el-form-item>
 
         </el-form>
-        <span> <el-button @click="addShortcut(shortcutText,shortcutLink,shortcutIcon)">确定</el-button> </span>
+        <span>
+            <el-button @click="addShortcut(shortcutText,shortcutLink,shortcutIcon)">确定</el-button>
+        </span>
+    </el-dialog>
+
+    <el-dialog v-model="dialogVisible2" title="警告" width="30%" center>
+        <div>
+            <span>是否删除该快捷方式？</span>
+            <div>
+                <el-avatar :src=shortcutIcon draggable="false" size="large" />
+            </div>
+            <div>
+                <div> 链接文本： {{ shortcutText }} </div>
+                <div> 链接地址： {{ shortcutLink }} </div>
+            </div>
+        </div>
+        <template #footer>
+            <span class="dialog-footer">
+                <el-button @click="dialogVisible2 = false">取消</el-button>
+                <el-button type="primary" @click="deleteItem(operateIndex)">确定</el-button>
+            </span>
+        </template>
     </el-dialog>
 
     <transition-group name="shortcuts" class="shortcuts" tag="div">
-            <shortcut-item 
-            v-for="(item,index) in shortcutsArray" 
-            :key="index" 
-            class="shortcut-item"
-            :text=item.text 
-            :link=item.link 
-            :icon=item.icon
-            :index=index 
-            :draggable=item.draggable
-            @dragenter="dragenter($event, index)"
-            @dragover="dragover($event, index)"
-            @dragstart="dragstart(index)">
-            </shortcut-item>
-            <shortcut-item @click="openDialog" v-show="shortcutsArray.length<24" :link="null" icon="./assets/icons/512.png" text="添加新图标" :index="-1"></shortcut-item>
+        <shortcut-item v-for="(item,index) in shortcutsArray" :key="index" class="shortcut-item" :text=item.text
+            :link=item.link :icon=item.icon :index=index :draggable=item.draggable @dragenter="dragenter($event, index)"
+            @dragover="dragover($event, index)" @dragstart="dragstart(index)" @click.right="openDialog2(index)" @contextmenu.prevent>
+        </shortcut-item>
+        <shortcut-item @click="openDialog1" v-show="shortcutsArray.length<24" :link="null" icon="./assets/icons/512.png"
+            text="添加新图标" :index="-1"></shortcut-item>
     </transition-group>
+
 </template>
 
 <script>
@@ -61,11 +75,13 @@ export default {
         return {
             shortcutsArray:[],
             dragIndex:undefined, //拖动时用
-            dialogVisible:ref(false),
+            dialogVisible1:ref(false),
             //用于v-model绑定Dialog内数据
+            dialogVisible2:ref(false),
             shortcutText:null,
             shortcutLink:null,
             shortcutIcon:"./assets/icons/512.png",
+            operateIndex:null,
         }
     },
     created(){
@@ -83,7 +99,7 @@ export default {
                 icon: icon,
                 draggable: true
             })
-            this.dialogVisible = false
+            this.dialogVisible1 = false
         },
         dragstart(index){
             this.dragIndex = index
@@ -103,14 +119,24 @@ export default {
             e.preventDefault()
 
         },
-        openDialog(){
+        openDialog1(){
             this.shortcutText=null
             this.shortcutLink=null
             this.shortcutIcon="./assets/icons/512.png"
-            this.dialogVisible=true
+            this.dialogVisible1=true
+        },
+        openDialog2(index){
+            this.operateIndex=index
+            this.shortcutText=this.shortcutsArray[index].text
+            this.shortcutLink=this.shortcutsArray[index].link
+            this.shortcutIcon=this.shortcutsArray[index].icon
+            this.dialogVisible2=true
+        },
+        deleteItem(index){
+            this.shortcutsArray.splice(index,1)
+            this.dialogVisible2 = false
         },
         async refreshIcon(){
-
             this.shortcutIcon = 'https://api.qqsuu.cn/api/favicon/get.php?url=' + this.shortcutLink
         }
     }

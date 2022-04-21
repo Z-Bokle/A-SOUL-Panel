@@ -5,9 +5,13 @@
     <div class="top">
       <div class="apps">
         <el-row>
-          <el-button-group>
-          <el-button @click="showapp1()">设置</el-button>
-          <el-button @click="showapp2()">动态与直播</el-button>
+          <el-button-group size="large">
+            <el-tooltip effect="dark" placement="bottom-start" content="对插件进行一些必要的设置，如搜索引擎、通知等">
+              <el-button @click="showapp1()" class="top-button">设置</el-button>
+            </el-tooltip>
+            <el-tooltip effect="dark" placement="bottom-start" content="查看当前直播间信息，B站动态瀑布流，并快速跳转到指定页面">
+              <el-button @click="showapp2()" class="top-button">动态与直播</el-button>
+            </el-tooltip>
           </el-button-group>
         </el-row>
       </div>
@@ -80,7 +84,6 @@ export default {
 .top{
     width: 100%;
     height: 6vh;
-    
 }
 .middle{
     margin: 10vh auto 6vh;
@@ -96,7 +99,7 @@ export default {
 .apps{
     margin: 0px auto 0;
     height: 6vh;
-    background: rgba(255,255,255,.1);
+    background: rgba(255,255,255,0);
     backdrop-filter: blur(2px);   
 }
 .time{
@@ -134,5 +137,10 @@ export default {
     backdrop-filter: blur(2px); 
     
 }
-
+.top-button{
+  background-color: rgba(255, 255, 255, 0.5);
+}
+el-button-group{
+  height: inherit;
+}
 </style>

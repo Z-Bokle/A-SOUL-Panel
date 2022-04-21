@@ -1,12 +1,13 @@
 <template>
     <div @click=clickItem class="shortcut-block">
         <div class="item-icon">
-            <el-avatar :src=icon :style=imgStyle draggable="false"/>
+            <el-avatar :src=icon :style=imgStyle draggable="false" />
         </div>
         <div class="item-text">
             <span> {{ text }} </span>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -35,7 +36,7 @@ export default {
             //iconUrl:icon,//图标url地址
             imgStyle:{
                 height:'5vh',
-                width:'5vh'//相对大小通过客户端高度获取
+                width:'5vh' //相对大小通过客户端高度获取
             }
         }
     },
