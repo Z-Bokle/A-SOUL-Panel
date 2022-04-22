@@ -46,7 +46,7 @@ export default {
 <style>
 
 .greeting{
-    font-size: 2.5vh;
+    font-size: 2.7vh;
     font-family: HYXuJingXingKaiW;
     color: white;
 }

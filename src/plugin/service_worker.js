@@ -34,7 +34,12 @@ chrome.runtime.onInstalled.addListener(() => {
             {name:'asoul',cname:"官号",rid:22632157,uid:703007996}
         ],
         live:[],
-        recent_dynamic:[]
+        recent_dynamic:[],
+        engine:[
+            {name:'百度',link:'http://www.baidu.com/s?wd='},
+            {name:'搜狗',link:'https://www.sogou.com/web?query='},
+            {name:'今日头条',link:'https://so.toutiao.com/search?dvpf=pc&keyword='}
+        ]
     },() => {
         console.log("install")
     })

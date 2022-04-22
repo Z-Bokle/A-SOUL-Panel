@@ -1,18 +1,45 @@
 <template>
-    <form action="http://www.baidu.com/s" method="get" target="_self">
-    <input type="text" name="wd" maxLength="50" class="search_text" />
-    <input type="submit" name="" value="搜索" class="search_button" /> 
-    </form>
+    
+    <select id="select">
+    </select>
+    <input type="text" id="input" name="text" maxLength="50" class="search-text" />
+
+    <button @click="search" class="search-button">搜索</button>
+    
 </template>
 
 <script>
 export default {
-    name:'search-box'
+    name:'search-box',
+    data(){
+        return {
+
+        }
+    },
+    created(){
+        //从storage获取搜索引擎数据
+        (async() => {
+            let result = await chrome.storage.sync.get(['engine'])
+            let engineArray = await result['engine']
+            let select = document.getElementById('select')
+            engineArray.forEach(engine => {
+                select.options.add(new Option(engine.name,engine.link))
+            })
+        })()
+    },
+    methods:{
+        search(){
+            let text = document.getElementById('input').value
+            let select = document.getElementById('select')
+            let selection = select.selectedIndex
+            window.open(select.options[selection].value + text,'_self')
+        }
+    }
 }
 </script>
 
 <style>
-.search_text{
+.search-text{
     width: 15vw;
     height: 4vh;
     background-color: transparent;
@@ -23,7 +50,7 @@ export default {
     color:#000;
 }
 
-.search_button{
+.search-button{
     width: 6vw;
     height: 4vh;
     line-height: 4vh;

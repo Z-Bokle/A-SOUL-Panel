@@ -5,7 +5,7 @@
     <div class="top">
       <div class="apps">
         <el-row>
-          <el-button-group size="large">
+          <el-button-group size="large" class="top-buttons">
             <el-tooltip effect="dark" placement="bottom-start" content="对插件进行一些必要的设置，如搜索引擎、通知等">
               <el-button @click="showapp1()" class="top-button">设置</el-button>
             </el-tooltip>
@@ -141,6 +141,6 @@ export default {
   background-color: rgba(255, 255, 255, 0.5);
 }
 el-button-group{
-  height: inherit;
+  font-family: MiSans;
 }
 </style>

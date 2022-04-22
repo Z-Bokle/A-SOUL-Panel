@@ -151,16 +151,14 @@ export default {
     align-items: flex-end;
     align-content: space-around;
 }
-.shortcuts-leave-active
-.shortcuts-item-enter-active
-{
-    transition: all 1s ease;   
-}
+
 .shortcuts-move{
     transition: transform 0.8s ease;
     
 }
-
+shortcut-item{
+    display: inline-block;
+}
 .shortcuts-leave-active{
     position: absolute;
 }
