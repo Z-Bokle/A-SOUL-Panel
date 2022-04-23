@@ -23,7 +23,6 @@
     },
     "action":{
         "default_icon":"assets/icons/32.png",
-        "default_title":"关注嘉然，顿顿解馋！😋",
-        "default_popup":"popup/popup.html"
+        "default_title":"关注嘉然，顿顿解馋！😋"
     }
 }

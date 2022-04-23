@@ -76,8 +76,8 @@ export default {
             shortcutsArray:[],
             dragIndex:undefined, //拖动时用
             dialogVisible1:ref(false),
-            //用于v-model绑定Dialog内数据
             dialogVisible2:ref(false),
+            //用于v-model绑定Dialog内数据
             shortcutText:null,
             shortcutLink:null,
             shortcutIcon:"./assets/icons/512.png",

@@ -46,7 +46,7 @@
 
         <el-timeline v-infinite-scroll="load">
             <el-timeline-item v-for="(item,index) in dataArray" :key="index" :timestamp=item.time :icon=item.icon placement="top">
-                <el-card @click="openTab(item.url)">
+                <el-card @click="openTab(item.url)" style="cursor: pointer;">
                     <template #header>
                         <el-avatar :src="item.headUrl" size="large" />
                         <h4 class="dynamic-title">{{ item.head }}</h4>
@@ -107,7 +107,7 @@ export default {
             ])
         }
     },
-    created() {
+    mounted(){
         Date.prototype.Format = function (fmt) { //author: meizz
             var o = {
                 "M+": this.getMonth() + 1, //月份

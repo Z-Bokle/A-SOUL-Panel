@@ -23,9 +23,11 @@ export default {
                 let result = await chrome.storage.sync.get(['engine'])
                 this.engineArray = await result['engine']
                 let select = document.getElementById('select')
-                this.engineArray.forEach(engine => {
+
+                for(let i=0;i<this.engineArray.length;i++){
+                    let engine = await this.engineArray[i]
                     select.options.add(new Option(engine.name,engine.link))
-                })                
+                }          
             } 
             catch (err) {
                 console.error("无法获取搜索引擎信息")

@@ -10,21 +10,44 @@ chrome.alarms.create("alarm_1hour",{
 })
 
 chrome.alarms.create("init",{
-    when:Date.now()+1000  //在1s后执行alarm
+    when:Date.now()+100  //在0.1s后执行alarm
 })
 
 
-// chrome.action.onClicked.addListener((tab) => {
-//     chrome.tabs.create(
-//         {
-//             //打开新标签页
-//             url:"chrome://newtab/"
-//         }
-//     )
-// })
+chrome.action.onClicked.addListener((tab) => {
+    chrome.tabs.create(
+        {
+            //打开新标签页
+            url:"chrome://newtab/"
+        }
+    )
+})
 
-chrome.runtime.onInstalled.addListener(() => {
-    chrome.storage.sync.set({
+async function storeData() {
+    let result = await chrome.storage.sync.get(['engine','settings'])
+    let engine = await result.engine
+    let settings = await result.settings 
+
+    //检查是否为首次安装，是首次安装(engine和settings字段为undefined或者null)就存储新信息，否则不覆盖原设置
+
+    if(!engine){
+        engine = [
+            {name:'百度',link:'https://www.baidu.com/s?wd='},
+            {name:'搜狗',link:'https://www.sogou.com/web?query='},
+            {name:'必应',link:'https://cn.bing.com/search?q='},
+            {name:'今日头条',link:'https://so.toutiao.com/search?dvpf=pc&keyword='}
+        ]       
+        console.log('已初始化engine') 
+    }
+
+    if(!settings){
+        settings = {
+            noti:false //是否开启后台动态更新以及开播提醒通知
+        }
+        console.log('已初始化settings')
+    }
+
+    await chrome.storage.sync.set({
         members:[
             {name:'ava',cname:"向晚",rid:22625025,uid:672346917},
             {name:'bella',cname:"贝拉",rid:22632424,uid:672353429},
@@ -35,20 +58,21 @@ chrome.runtime.onInstalled.addListener(() => {
         ],
         live:[],
         recent_dynamic:[],
-        engine:[
-            {name:'百度',link:'http://www.baidu.com/s?wd='},
-            {name:'搜狗',link:'https://www.sogou.com/web?query='},
-            {name:'今日头条',link:'https://so.toutiao.com/search?dvpf=pc&keyword='}
-        ]
-    },() => {
-        console.log("install")
+        engine:engine,
+        settings:settings
     })
+    console.log("install")
     //插件初始化，往storage中存一些必要的初始数据
     //如默认设置、直播房间号、UID、Todo信息、Shortcut信息等
-})
+}
 
 chrome.alarms.onAlarm.addListener((alarm) => {
-    
+    let result,noti;
+    (async() => {
+        result = await chrome.storage.sync.get(['settings'])
+        noti = result.settings.noti
+    })()
+
     
     //将fetch得到的对象转换为待存储的对象
     async function translateObj1(data){
@@ -155,7 +179,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
     //alarm参数用于区别不同的alarm
     //1min已经实现了新动态、开播的提醒，有空调用notification API实现通知--------------------------------------------------------------------------------------------------------------
-    if(alarm.name=="alarm_1min")
+    if(alarm.name=="alarm_1min" && noti)
     {
         console.log("1min") 
         //1分钟的alarm用于获取获取直播信息和最新一条动态并存入storage
@@ -202,23 +226,56 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                 startLive.push(i)
             }
             return {'update':update,'startLive':startLive}
-        }
+        };
 
-        async function checkData(){
+        (async () => {
             let oldData1 = await updateData()
             let oldData2 = await sort(oldData1)
             let list = await compare(oldData2)
 
-            for(let i=0;i<list.update.length;i++)
-            console.log("动态更新",recent_dynamic[list.update[i]])
-            for (let i = 0; i < list.startLive.length; i++) 
-            console.log("开始直播",live[list.startLive[i]])
+            for(let i=0;i<list.update.length;i++){
+                let d = recent_dynamic[list.update[i]] //待推送的动态对象
+                console.log("动态更新",d)
+                let name = '有一个小可爱'; //default name
+                (async () => {
+                    let result = await chrome.storage.sync.get(['members'])
+                    let members = await result.members
+                    let member = members.find((element) => {return element.uid == d.uid})
+                    name = member.cname
+                })()
 
-            // console.log("beforeSave",recent_dynamic,live)
-            let save = await chrome.storage.sync.set({'recent_dynamic':recent_dynamic,'live':live})
-        }
-        
-        checkData()
+                let n = new Notification(`${name}的动态更新`,{
+                    icon:d.face,
+                    image:d.picUrl,
+                    body:d.text
+                })
+                n.onclick = (event) => {
+                    event.preventDefault()
+                    window.open(d.url, '_blank');
+                }
+            }
+            
+            for (let i = 0; i < list.startLive.length; i++){
+                let d = live[list.startLive[i]]
+                console.log("开始直播",d)
+                let name = '有一个小可爱'; //default name
+                (async () => {
+                    let result = await chrome.storage.sync.get(['members'])
+                    let members = await result.members
+                    let member = members.find((element) => {return element.uid == d.uid})
+                    name = member.cname
+                })()
+                let n = new Notification(`${name}开始直播`,{
+                    image:d.picUrl,
+                    body:d.title
+                })
+                n.onclick = (event) => {
+                    event.preventDefault()
+                    window.open(d.url, '_blank');
+                }
+            }
+            await chrome.storage.sync.set({'recent_dynamic':recent_dynamic,'live':live})
+        })() //check data and push notifications
 
     }
     
@@ -232,6 +289,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
 
     if(alarm.name=="init"){
         console.log("init")
+        storeData()
         //init用于service_worker初始化
         //从storage中取出必要的数据(直播房间号、UID)
         //执行一次fetch同步所有信息并存放到storage中
