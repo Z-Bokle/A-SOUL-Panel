@@ -143,32 +143,32 @@ export default {
         closeWindow(){
             this.drawer = false;
         },
-        load(){
+        async load(){
             //从rawArray处获得足量信息并按时间排序，处理成dataArray的元素后push进去
             if(this.rawArray.length - this.dataArray.length < 32) //剩余不足32项
             try{
-                this.updateData()
+                await this.updateData()
             }    
             catch(err){
                 console.error("获取数据失败")
             }
 
 
-            let rawItem = this.rawArray[this.dataArray.length]
-            let member = this.members.find((element) => { return element.uid == rawItem.uid }) //根据uid查找到成员
+            let rawItem = await this.rawArray[this.dataArray.length]
+            let member = await this.members.find((element) => { return element.uid == rawItem.uid }) //根据uid查找到成员
 
             let type = this.typeMap.has(rawItem.type) ? this.typeMap.get(rawItem.type) : "其他"
             this.dataArray.push({
-                time:new Date(rawItem.timestamp*1000).Format("yyyy-MM-dd hh:mm:ss"), //时间戳
-                head:`${member.cname}发表了${type}类型的动态`, //标题
-                text:rawItem.text ? rawItem.text : null, //内容
-                picUrl:rawItem.type==1 ? rawItem.insideObj.picUrl : rawItem.picUrl, //图片链接
-                url:rawItem.url, //卡片点击链接
-                headUrl:rawItem.face, //头像链接
-                like:rawItem.like, //点赞
-                view:rawItem.view, //浏览
-                comment:rawItem.comment, //评论
-            })
+            time: new Date(rawItem.timestamp*1000).Format("yyyy-MM-dd hh:mm:ss"),
+            head: `${member.cname}发表了${type}类型的动态`,
+            text: rawItem.text? rawItem.text:null,
+            picUrl: rawItem.type==1? rawItem.insideObj.picUrl:rawItem.picUrl,
+            url: rawItem.url,
+            headUrl: rawItem.face,
+            like: rawItem.like,
+            view: rawItem.view,
+            comment: rawItem.comment, //评论
+          })
                 
         },
         openTab(url){

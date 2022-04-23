@@ -13,18 +13,34 @@ export default {
     name:'search-box',
     data(){
         return {
-
+            engineArray:[]
         }
     },
     created(){
         //从storage获取搜索引擎数据
         (async() => {
-            let result = await chrome.storage.sync.get(['engine'])
-            let engineArray = await result['engine']
-            let select = document.getElementById('select')
-            engineArray.forEach(engine => {
-                select.options.add(new Option(engine.name,engine.link))
-            })
+            try {
+                let result = await chrome.storage.sync.get(['engine'])
+                this.engineArray = await result['engine']
+                let select = document.getElementById('select')
+                this.engineArray.forEach(engine => {
+                    select.options.add(new Option(engine.name,engine.link))
+                })                
+            } 
+            catch (err) {
+                console.error("无法获取搜索引擎信息")
+            }
+        })()
+    },
+    unmounted(){
+        //将搜索引擎数据存储到storage
+        (async() => {
+            try {          
+                await chrome.storage.sync.set({engine:this.engineArray})
+            } 
+            catch (err) {
+                console.error(error)
+            }
         })()
     },
     methods:{
