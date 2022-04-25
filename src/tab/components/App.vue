@@ -129,6 +129,7 @@ export default {
     backdrop-filter: blur(2px); 
     border-radius: 25px;
 }
+
 .greetings{
     margin: 0 auto 0;
     height: 4vh;
