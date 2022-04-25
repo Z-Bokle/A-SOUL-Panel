@@ -57,15 +57,29 @@ export default {
 </script>
 
 <style>
+select{
+    font-family: "微软雅黑";
+    background: rgba(0,0,0,0);
+    color: rgb(223, 203, 203);
+    border: 1px #1a1a1a solid;
+    border-radius: 5px;
+}
+option{
+    color: rgb(68, 71, 71);
+    background: rgb(223, 203, 203);
+    line-height: 20px;
+    opacity: 0.6;  
+}
 .search-text{
-    width: 15vw;
+    font-family: "微软雅黑";
+    width: 40vw;
     height: 4vh;
     background-color: transparent;
     border:0;
     outline:none;
-    border-bottom: 2px solid #fff;
-    font-size:12px;
-    color:#000;
+    border-bottom: 2px solid rgb(21, 14, 14);
+    font-size:14px;
+    color:rgb(223, 203, 203);
 }
 
 .search-button{
