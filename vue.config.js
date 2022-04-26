@@ -8,7 +8,7 @@ const path = require("path");
 
 // 复制文件到指定目录
 const copyFiles = [
- {
+   {
      from: path.resolve("src/plugin/manifest.json"),
      to: `${path.resolve("dist")}/manifest.json`
    },
@@ -24,10 +24,15 @@ const copyFiles = [
      from: path.resolve("src/plugin/service_worker.js"),
      to: `${path.resolve("dist")}/service_worker.js`
    },
-     {
+   {
      from: path.resolve("src/popup"),
      to: path.resolve("dist/popup")
-   }
+   },
+   {
+     from: path.resolve("src/tab/dark.css"),
+     to: path.resolve("dist/css/dark.css")
+   } 
+
 ];
 
 // 复制插件

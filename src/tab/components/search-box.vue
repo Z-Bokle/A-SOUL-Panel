@@ -63,6 +63,7 @@ select{
     color: rgb(223, 203, 203);
     border: 1px #1a1a1a solid;
     border-radius: 5px;
+    margin-right: 1vw;
 }
 option{
     color: rgb(68, 71, 71);
@@ -98,7 +99,8 @@ option{
     background-size: 400%;
     /* 透明度0 （完全透明）~ 1（完全不透明） */
     opacity: 0.6;   
-    animation: sun 5s infinite;         
+    animation: sun 5s infinite;   
+    margin-left: 1vw;      
 }
 
 @keyframes sun{

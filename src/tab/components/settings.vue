@@ -1,5 +1,7 @@
 <template>
 
+    <link :href=darkCssUrl type="text/css" rel="stylesheet" />
+
     <el-dialog v-model="dialogVisible" title="添加新搜索引擎" width="30%" draggable>
         <el-form :model="form">
             <el-form-item label="搜索引擎名">
@@ -25,6 +27,7 @@
                 <h6 class="settings-desc">夜间模式</h6>
                 <el-switch
                 v-model="nightMode"
+                :before-change="changeDarkMode"
                 active-text="开启"
                 inactive-text="关闭"/>
 
@@ -100,7 +103,8 @@ export default {
             engine:[],
             engineName:null,
             engineLink:null,
-            clearDataFlag:false
+            clearDataFlag:false,
+            darkCssUrl:null
         }
     },
     async mounted(){
@@ -170,6 +174,12 @@ export default {
             await chrome.storage.sync.clear()
             this.clearDataFlag = true
             await chrome.runtime.reload()
+        },
+        changeDarkMode(){
+            //因为是before-change时触发的函数，因此相反
+            this.darkCssUrl = this.nightMode === false ? "css/dark.css" : null
+            console.log(this.darkCssUrl)
+            return true
         }
     }
 }

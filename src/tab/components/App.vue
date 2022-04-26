@@ -99,7 +99,7 @@ export default {
 .apps{
     margin: 0px auto 0;
     height: 6vh;
-    background: rgba(255,255,255,0);
+    background: transparent;
     backdrop-filter: blur(2px);   
 }
 .time{
@@ -107,7 +107,7 @@ export default {
     width: 40vw;
     height: 24vh;
     text-align: center;
-    background: rgba(255,255,255,.1);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px); 
     border-radius: 25px;
 }
@@ -116,7 +116,7 @@ export default {
     width: 60vw;
     height: 6vh;
     text-align: center;
-    background: rgba(255,255,255,.1);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px); 
     border-radius: 25px;
 }
@@ -125,7 +125,7 @@ export default {
     width: 60vw;
     height: 40vh;
     text-align: center;
-    background: rgba(255,255,255,.1);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px); 
     border-radius: 25px;
 }
@@ -134,7 +134,7 @@ export default {
     margin: 0 auto 0;
     height: 4vh;
     text-align: center;
-    background: rgba(255,255,255,.1);
+    background: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px); 
     
 }
