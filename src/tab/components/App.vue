@@ -15,12 +15,15 @@
           </el-button-group>
         </el-row>
       </div>
-      
+
+      <div class="weather">
+      <weather></weather>
+      </div>
     </div>
 
     <div class="middle">
 
-      <!-- <weather></weather> -->
+      
       <settings ref="settings"></settings>
       <asouldata ref="asouldata"></asouldata>
 
@@ -143,5 +146,11 @@ export default {
 }
 el-button-group{
   font-family: MiSans;
+}
+
+.weather{
+  position: fixed;
+  top: 0vh;
+  right: 0vw;
 }
 </style>

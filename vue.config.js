@@ -31,8 +31,11 @@ const copyFiles = [
    {
      from: path.resolve("src/tab/dark.css"),
      to: path.resolve("dist/css/dark.css")
-   } 
-
+   }, 
+   {
+    from: path.resolve("src/tab/weather.css"),
+    to: path.resolve("dist/css/weather.css")
+  }
 ];
 
 // 复制插件
