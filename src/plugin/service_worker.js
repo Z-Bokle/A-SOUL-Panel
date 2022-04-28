@@ -296,7 +296,7 @@ chrome.alarms.onAlarm.addListener((alarm) => {
                     (async () => {
                         let result = await chrome.storage.sync.get(['members'])
                         let members = await result.members
-                        let member = await members.find((element) => {return element.uid == d.uid})
+                        let member = await members.find((element) => {return element.rid == d.rid})
                         name = await member.cname
                         chrome.notifications.create(d.url,{
                             type:'image',
