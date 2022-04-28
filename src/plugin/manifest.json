@@ -13,7 +13,7 @@
         "http://*/",
         "https://*/"
     ],
-    "permissions":["storage","alarms","notifications"],
+    "permissions":["storage","alarms","notifications","tabs"],
     "homepage_url":"https://github.com/Z-Bokle/A-SOUL-Panel",
     "chrome_url_overrides":{
         "newtab":"tab.html"

@@ -46,9 +46,10 @@
             :link=item.link :icon=item.icon :index=index :draggable=item.draggable @dragenter="dragenter($event, index)"
             @dragover="dragover($event, index)" @dragstart="dragstart(index)" @click.right="openDialog2(index)" @contextmenu.prevent>
         </shortcut-item>
+       
         <shortcut-item @click="openDialog1" v-show="shortcutsArray.length<24" :link="null" icon="./assets/icons/512.png"
             text="添加新图标" :index="-1"></shortcut-item>
-    </transition-group>
+    </transition-group> 
 
 </template>
 
@@ -85,11 +86,11 @@ export default {
         }
     },
     created(){
-        //从插件storage取出shortcutsArray
-        
-    },
-    unmounted(){
-        //将shortcutsArray存储到storage
+        chrome.storage.sync.get(['shortcuts'],(result) => {
+            // console.log(result.shortcuts)
+            if(result.shortcuts) this.shortcutsArray = Object.values(result.shortcuts)
+            else this.shortcutsArray = []
+        })
     },
     methods: {
         addShortcut(text,link,icon){
@@ -100,6 +101,7 @@ export default {
                 draggable: true
             })
             this.dialogVisible1 = false
+            chrome.storage.sync.set({shortcuts:this.shortcutsArray})
         },
         dragstart(index){
             this.dragIndex = index
@@ -135,9 +137,10 @@ export default {
         deleteItem(index){
             this.shortcutsArray.splice(index,1)
             this.dialogVisible2 = false
+            chrome.storage.sync.set({shortcuts:this.shortcutsArray})
         },
         async refreshIcon(){
-            this.shortcutIcon = 'https://api.qqsuu.cn/api/favicon/get.php?url=' + this.shortcutLink
+            this.shortcutIcon = this.shortcutLink + '/favicon.ico'
         }
     }
 }

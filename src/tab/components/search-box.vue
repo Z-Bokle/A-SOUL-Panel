@@ -64,6 +64,7 @@ select{
     border: 1px #1a1a1a solid;
     border-radius: 5px;
     margin-right: 1vw;
+    margin-top: 0.8vw;
 }
 option{
     color: rgb(68, 71, 71);
@@ -100,7 +101,8 @@ option{
     /* 透明度0 （完全透明）~ 1（完全不透明） */
     opacity: 0.6;   
     animation: sun 5s infinite;   
-    margin-left: 1vw;      
+    margin-left: 1vw;   
+    margin-top: 0.8vh;   
 }
 
 @keyframes sun{
